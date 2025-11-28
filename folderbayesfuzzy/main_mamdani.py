@@ -2,7 +2,7 @@ import pandas as pd
 from bayes_module import bayes_prob_overload
 from fuzzy_mamdani import mamdani_decision
 
-df = pd.read_csv("../PowerLoad_Dataset.csv")
+df = pd.read_csv("PowerLoad_Dataset.csv")
 
 # ekstrak jam dari Timestamp
 df['Hour'] = pd.to_datetime(df['Timestamp']).dt.hour

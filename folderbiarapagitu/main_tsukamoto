@@ -1,0 +1,43 @@
+import pandas as pd
+from fuzzy_tsukamoto import TsukamotoFuzzySystem
+from bayesmodule import GridBayesEngine
+
+
+df = pd.read_csv("PowerLoad_Dataset.csv") 
+    
+    # 2. Preprocess
+df['Timestamp'] = pd.to_datetime(df['Timestamp'])
+df['Hour'] = df['Timestamp'].dt.hour
+    
+
+tsukamoto = TsukamotoFuzzySystem()
+bayes = GridBayesEngine()
+    
+print(f"{'TIMESTAMP':<20} | {'TSUKAMOTO%':<10} | {'STATUS'}")
+
+    
+
+for i in range(40):
+    row = df.iloc[i]
+        
+        # Inputs
+    t_val = float(row['Hour'])
+    d_val = float(row['DayOfWeek']) - 1.0 # Hari  1-7 ke 0-6 (senin=0)
+    r_val = float(row['Precipitation_mm'])
+        
+        #Nilai Fuzzy
+    score_t = tsukamoto.evaluate(t_val, d_val, r_val)
+        
+        #Probabilitas Bayes
+    prob_t = bayes.get_failure_probability(score_t)
+        
+
+    if prob_t > 0.8:
+            status = "CRITICAL"
+    elif prob_t > 0.3:
+            status = "WARNING"
+    else:
+            status = "NORMAL"
+        
+    print(f"{str(row['Timestamp']):<20} | {prob_t:.1%}     | {status}")
+

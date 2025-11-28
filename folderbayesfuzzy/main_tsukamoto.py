@@ -2,7 +2,7 @@ import pandas as pd
 from bayes_module import bayes_prob_overload
 from fuzzy_tsukamoto import tsukamoto_decision
 
-df = pd.read_csv("../PowerLoad_Dataset.csv")
+df = pd.read_csv("PowerLoad_Dataset.csv")
 df['Hour'] = pd.to_datetime(df['Timestamp']).dt.hour
 
 for i in range(10):
