@@ -26,8 +26,6 @@ def bayes_prob_overload(hour, day_of_week, precip):
     day   = classify_day(day_of_week)
     cuaca = classify_weather(precip)
 
-    # --- rules yang kamu tulis ---
-
     # Tinggi
     if waktu == "pagi" and day == "jam_kerja":
         level = "tinggi"
