@@ -1,0 +1,1 @@
+from fuzzy_tsukamoto import tsukamoto_decision
